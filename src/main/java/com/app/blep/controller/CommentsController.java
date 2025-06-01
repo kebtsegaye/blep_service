@@ -18,8 +18,8 @@ public class CommentsController {
     @GetMapping
     public List<Comments> getComments() {
         System.out.println("in getComments method for get reset command.");
-        //commentsService.getAllComments().stream().map(Comments::toString).forEach(System.out::println);
-        //System.out.println(commentsService.getAllComments().getFirst().getContent());
+        // commentsService.getAllComments().stream().map(Comments::toString).forEach(System.out::println);
+        // System.out.println(commentsService.getAllComments().getFirst().getContent());
         return commentsService.getAllComments();
     }
 
@@ -27,5 +27,21 @@ public class CommentsController {
     public ResponseEntity<Comments> getCommentById(@PathVariable int id) {
         //.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
         return commentsService.getCommentById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public Comments postComment(@PathVariable int userId, @PathVariable int postId,
+                                @PathVariable String commentContent) {
+        return commentsService.addComment(userId, postId, commentContent);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteComment(@PathVariable int commentId) {
+        return commentsService.deleteComment(commentId);
+    }
+
+    @PutMapping
+    public Comments updateComment(@PathVariable int commentId, @PathVariable int userId, @PathVariable int postId, @PathVariable String commentContent) {
+        return commentsService.updateComment(commentId, userId, postId, commentContent);
     }
 }
