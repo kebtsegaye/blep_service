@@ -35,12 +35,12 @@ public class CommentsController {
         return commentsService.addComment(userId, postId, commentContent);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public boolean deleteComment(@PathVariable int commentId) {
         return commentsService.deleteComment(commentId);
     }
 
-    @PutMapping
+    @PutMapping("{id}/update")
     public Comments updateComment(@PathVariable int commentId, @PathVariable int userId, @PathVariable int postId, @PathVariable String commentContent) {
         return commentsService.updateComment(commentId, userId, postId, commentContent);
     }
