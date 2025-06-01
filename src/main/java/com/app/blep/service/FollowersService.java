@@ -1,10 +1,7 @@
 package com.app.blep.service;
 
-import aj.org.objectweb.asm.commons.Remapper;
-import com.app.blep.model.Comments;
 import com.app.blep.model.Followers;
 import com.app.blep.repository.FollowersRepo;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
