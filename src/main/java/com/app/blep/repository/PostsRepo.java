@@ -1,7 +1,7 @@
 package com.app.blep.repository;
 
-import com.app.blep.model.Comments;
+import com.app.blep.model.Posts;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostsRepo extends JpaRepository<Comments, Long> {
+public interface PostsRepo extends JpaRepository<Posts, Long> {
 }
