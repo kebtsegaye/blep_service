@@ -17,7 +17,8 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private VarcharJdbcType userName;
-    private String content;
+    private String userName;
+    private String email;
+    private String passwordHash;
     private Timestamp created_at;
 }
