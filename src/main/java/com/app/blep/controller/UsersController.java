@@ -1,8 +1,6 @@
 package com.app.blep.controller;
 
-import com.app.blep.model.Comments;
 import com.app.blep.model.Users;
-import com.app.blep.service.CommentsService;
 import com.app.blep.service.UsersService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
