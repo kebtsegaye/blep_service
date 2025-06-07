@@ -19,6 +19,7 @@ public class Users {
     private int id;
     private String userName;
     private String email;
+    // plain password right now
     private String passwordHash;
     private Timestamp created_at;
 }

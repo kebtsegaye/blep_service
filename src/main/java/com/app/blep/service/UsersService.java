@@ -67,4 +67,8 @@ public class UsersService {
     public List<Users> getAllUsers() {
         return usersRepo.findAll();
     }
+
+    public Optional<Users> findUserByName(String username) {
+        return usersRepo.findByUserName(username);
+    }
 }

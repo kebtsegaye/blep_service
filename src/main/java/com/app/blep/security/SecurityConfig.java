@@ -8,17 +8,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 public class SecurityConfig {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors() // enable CORS
-                .and()
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .anyRequest().permitAll();
-
-        return http.build();
-    }
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .cors() // enable CORS
+//                .and()
+//                .csrf().disable()
+//                .authorizeHttpRequests()
+//                .anyRequest().permitAll();
+//
+//        return http.build();
+//    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
