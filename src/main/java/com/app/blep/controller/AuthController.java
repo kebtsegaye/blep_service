@@ -3,6 +3,8 @@ package com.app.blep.controller;
 import com.app.blep.dto.LoginRequest;
 import com.app.blep.model.Users;
 import com.app.blep.service.UsersService;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,24 +13,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Optional;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     @Autowired
     private UsersService usersService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        Users user = findByUsername(request.getUsername()).orElse(null);
+    public String login(@RequestBody LoginRequest request) {
+            String token = generateToken(findByUsername(request.getUsername()));
+            System.out.println("inside ");
+            return findByUsername(request.getUsername());
+    }
 
-        // TODO: Password is not hashed right now
-        if (user != null && user.getPasswordHash().equals(request.getPassword())) {
-            String token = generateToken(user.getUserName());
-            return ResponseEntity.ok(Collections.singletonMap("token", token));
+    @PostMapping("/signup")
+    public String signup(@RequestBody LoginRequest signUpRequest) {
+        System.out.println(" in sign up");
+        Users newUser = usersService.signUpUser(signUpRequest.getUsername(), signUpRequest.getPassword());
+        if ( newUser != null) {
+            return "Signup is successful. You can now log in!";
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Invalid username or password. Please try again!");
+            return " Please try a different username";
         }
     }
 
@@ -37,7 +44,12 @@ public class AuthController {
         return "brainorbrawn";
     }
 
-    private Optional<Users> findByUsername(String username) {
-        return usersService.findUserByName(username);
+    private String findByUsername(String username) {
+        Optional<Users> user = usersService.findUserByName(username);
+        if (user.isPresent()) {
+            return user.get().getUsername();
+        } else {
+            return "Username not found";
+        }
     }
 }

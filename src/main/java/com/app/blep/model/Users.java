@@ -1,9 +1,6 @@
 package com.app.blep.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
@@ -17,7 +14,8 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String userName;
+    //@Column(name = "username")
+    private String username;
     private String email;
     // plain password right now
     private String passwordHash;

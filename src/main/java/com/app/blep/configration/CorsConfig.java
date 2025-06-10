@@ -1,4 +1,4 @@
-package com.app.blep.controller;
+package com.app.blep.configration;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
