@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,17 +16,21 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value = "/api/auth")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-            String token = generateToken(findByUsername(request.getUsername()));
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+            //String token = generateToken(findByUsername(request.getUsername()));
             System.out.println("inside ");
-            return findByUsername(request.getUsername());
+            if (request.getUsername().equals("keb")) {
+                return ResponseEntity.ok("Login success");
+            } else {
+                return ResponseEntity.badRequest().body("Username or password not found");
+            }
     }
 
     @PostMapping("/signup")
