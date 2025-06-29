@@ -1,17 +1,15 @@
 package com.app.blep.controller;
 
 import com.app.blep.dto.LoginRequest;
+import com.app.blep.dto.SignUpRequest;
 import com.app.blep.model.Users;
 import com.app.blep.service.UsersService;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Slf4j
@@ -23,20 +21,21 @@ public class AuthController {
     private UsersService usersService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
-            //String token = generateToken(findByUsername(request.getUsername()));
+    public ResponseEntity<LoginRequest> login(@RequestBody LoginRequest request) {
+            // String token = generateToken(findByUsername(request.getUsername()));
             System.out.println("inside ");
             if (request.getUsername().equals("keb")) {
-                return ResponseEntity.ok("Login success");
+                return ResponseEntity.ok(request);
             } else {
-                return ResponseEntity.badRequest().body("Username or password not found");
+                return ResponseEntity.badRequest().body(request);
             }
     }
 
-    @PostMapping("/signup")
-    public String signup(@RequestBody LoginRequest signUpRequest) {
+    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String signup(@RequestBody SignUpRequest signUpRequest) {
         System.out.println(" in sign up");
-        Users newUser = usersService.signUpUser(signUpRequest.getUsername(), signUpRequest.getPassword());
+        Users newUser = usersService.signUpUser(signUpRequest.getUsername(), signUpRequest.getPasswordhash(),
+                signUpRequest.getEmail());
         if ( newUser != null) {
             return "Signup is successful. You can now log in!";
         } else {

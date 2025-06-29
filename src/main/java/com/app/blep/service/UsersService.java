@@ -46,25 +46,24 @@ public class UsersService {
         return user;
     }
 
-    public Users addUser(String userName, String email, String passwordHash) {
+    public Users addUser(Users user) {
         LocalTime localTime = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        Users user = new Users();
-        user.setUsername(userName);
-        user.setEmail(email);
-        user.setPasswordHash(passwordHash);
+        user.setUsername(user.getUsername());
+        user.setEmail(user.getEmail());
+        user.setPasswordHash(user.getPasswordHash());
         user.setCreated_at(Timestamp.valueOf(localTime.format(formatter)));
 
         usersRepo.save(user);
-
         return user;
     }
 
-    public Users signUpUser(String username, String password) {
+    public Users signUpUser(String username, String password, String email) {
         Users user = new Users();
         user.setUsername(username);
         user.setPasswordHash(password);
+        user.setEmail(email);
+        addUser(user);
         return user;
     }
 
