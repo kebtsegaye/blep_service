@@ -23,7 +23,7 @@ public class AuthController {
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoginRequest> login(@RequestBody LoginRequest request) {
             // String token = generateToken(findByUsername(request.getUsername()));
-            System.out.println("inside ");
+            System.out.println("inside login method");
             if (request.getUsername().equals("keb")) {
                 return ResponseEntity.ok(request);
             } else {
@@ -32,14 +32,15 @@ public class AuthController {
     }
 
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String signup(@RequestBody SignUpRequest signUpRequest) {
+    public  ResponseEntity<SignUpRequest> signup(@RequestBody SignUpRequest signUpRequest) {
         System.out.println(" in sign up");
         Users newUser = usersService.addUser(signUpRequest.getUsername(), signUpRequest.getPasswordhash(),
                 signUpRequest.getEmail());
-        if ( newUser != null) {
-            return "Signup is successful. You can now log in!";
+        System.out.println("inside signup method");
+        if (newUser != null) {
+            return ResponseEntity.ok(signUpRequest);
         } else {
-            return " Please try a different username";
+            return ResponseEntity.badRequest().body(signUpRequest);
         }
     }
 

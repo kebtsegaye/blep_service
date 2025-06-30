@@ -56,6 +56,7 @@ public class UsersService {
         user.setCreated_at(localDateTime);
 
         usersRepo.save(user);
+        System.out.println("user added to db");
         return user;
     }
 
