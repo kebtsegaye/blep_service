@@ -34,7 +34,7 @@ public class AuthController {
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String signup(@RequestBody SignUpRequest signUpRequest) {
         System.out.println(" in sign up");
-        Users newUser = usersService.signUpUser(signUpRequest.getUsername(), signUpRequest.getPasswordhash(),
+        Users newUser = usersService.addUser(signUpRequest.getUsername(), signUpRequest.getPasswordhash(),
                 signUpRequest.getEmail());
         if ( newUser != null) {
             return "Signup is successful. You can now log in!";

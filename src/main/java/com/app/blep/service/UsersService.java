@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -31,7 +32,7 @@ public class UsersService {
     }
 
     public Users updateUser(int userId, String userName, String email, String passwordHash) {
-        LocalTime localTime = LocalTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Users user = usersRepo.findById((long) userId).orElseThrow(() -> new RuntimeException("Comment can"
@@ -39,31 +40,22 @@ public class UsersService {
         user.setUsername(userName);
         user.setEmail(email);
         user.setPasswordHash(passwordHash);
-        user.setCreated_at(Timestamp.valueOf(localTime.format(formatter)));
+        user.setCreated_at(localDateTime);
 
         usersRepo.save(user);
 
         return user;
     }
 
-    public Users addUser(Users user) {
-        LocalTime localTime = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        user.setUsername(user.getUsername());
-        user.setEmail(user.getEmail());
-        user.setPasswordHash(user.getPasswordHash());
-        user.setCreated_at(Timestamp.valueOf(localTime.format(formatter)));
-
-        usersRepo.save(user);
-        return user;
-    }
-
-    public Users signUpUser(String username, String password, String email) {
+    public Users addUser(String username, String passwordhash, String email) {
+        LocalDateTime localDateTime = LocalDateTime.now();
         Users user = new Users();
         user.setUsername(username);
-        user.setPasswordHash(password);
         user.setEmail(email);
-        addUser(user);
+        user.setPasswordHash(passwordhash);
+        user.setCreated_at(localDateTime);
+
+        usersRepo.save(user);
         return user;
     }
 

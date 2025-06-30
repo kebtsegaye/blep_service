@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -19,5 +20,5 @@ public class Users {
     private String email;
     // plain password right now
     private String passwordHash;
-    private Timestamp created_at;
+    private LocalDateTime created_at;
 }
