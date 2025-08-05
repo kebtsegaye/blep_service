@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
-// @Entity(name = "Comments")
 @NoArgsConstructor
 @Data
 public class Comments {
